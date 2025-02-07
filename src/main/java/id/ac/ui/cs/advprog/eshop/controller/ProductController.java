@@ -30,9 +30,10 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public String listProducts(Model model) {
-        List<Product> allProducts = service.findall();
+    public String listProduct(Model model) {
+        List<Product> allProducts = service.findAll();
         model.addAttribute("products", allProducts);
         return "ProductList";
     }
+
 }
