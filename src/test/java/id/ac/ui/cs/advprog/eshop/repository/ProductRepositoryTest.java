@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.*;
@@ -62,6 +61,82 @@ class ProductRepositoryTest {
         savedProduct = productIterator.next();
         assertEquals(product2.getProductID(), savedProduct.getProductID());
         assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void editExistingProduct() {
+        Product product1 = new Product();
+        product1.setProductName("Apple");
+        product1.setProductQuantity(10);
+        productRepository.create(product1);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductID(product1.getProductID());
+        updatedProduct.setProductName("Banana");
+        updatedProduct.setProductQuantity(40);
+        productRepository.create(updatedProduct);
+
+        // Should edit(update) the details of product
+        Product editedProduct = productRepository.edit(updatedProduct);
+        assertNotNull(editedProduct);
+        assertEquals(editedProduct.getProductName(), updatedProduct.getProductName());
+        assertEquals(editedProduct.getProductQuantity(), updatedProduct.getProductQuantity());
+    }
+
+    @Test
+    void editNonExistingProduct() {
+        Product updatedProduct = new Product();
+        updatedProduct.setProductID("does-not-exist");
+        updatedProduct.setProductName("Apple");
+        updatedProduct.setProductQuantity(10);
+
+        // Should give a null when trying to edit
+        Product editedProduct = productRepository.edit(updatedProduct);
+        assertNull(editedProduct);
+    }
+
+    @Test
+    void deleteExistingProduct() {
+        Product newProduct = new Product();
+        newProduct.setProductName("Apple");
+        newProduct.setProductQuantity(10);
+        productRepository.create(newProduct);
+
+        // When product is deleted, should result a True
+        boolean isDeleted = productRepository.delete(newProduct.getProductID());
+        assertTrue(isDeleted);
+    }
+
+    @Test
+    void deleteNonExistingProduct() {
+        // When non-existing product is deleted, returns a False
+        boolean isDeleted = productRepository.delete("does-not-exist");
+        assertFalse(isDeleted);
+    }
+
+    @Test
+    void findExistingProductByProductID() {
+        Product product = new Product();
+        product.setProductName("Apple");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Product foundProduct = productRepository.findProductbyId("1");
+        assertNotNull(foundProduct);
+        assertEquals(foundProduct.getProductName(), product.getProductName());
+        assertEquals(foundProduct.getProductQuantity(), product.getProductQuantity());
+    }
+
+    @Test
+    void findNonExistingProductByProductID() {
+        Product foundProduct = productRepository.findProductbyId("does-not-exist");
+        assertNull(foundProduct);
+    }
+
+    @Test
+    void findProductByEmptyProductID() {
+        Product foundProduct = productRepository.findProductbyId("");
+        assertNull(foundProduct);
     }
 }
 
