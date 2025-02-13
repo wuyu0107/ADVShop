@@ -1,9 +1,12 @@
-### Reflection 1
-<details> 
-    <summary>Write clean code principles and secure coding practices that have been applied to your code.  If you find any mistake in your source code, please explain how to improve your code.</summary>
-    
-    Coding standards I've learned and applied to this exercise are readability and maintainability. 
-    I tried to keep each function do only one thing and make sure they work properly as intended. The code follows the formatting such as indentation consistent and make each lines of code short and clear so that they only do one job.
-    To write cleaner code, the names of the functions and variables are clear, such as function findProductbyID, you can infer that this function is used to find a Product by its product ID just by its name.
-    
+### Module 1
+<details>
+<summary>Reflection 1</summary>
+
+#### Write clean code principles and secure coding practices that have been applied to your code. If you find any mistake in your source code, please explain how to improve your code.
+
+I focused on coding standards that emphasize readability and maintainability in this exercise. I ensured that each function does only one thing, and operates as intended. The code follows a consistent formattting, such as proper indentation and keeping lines short as possible to maintain clarity and focus. I also used descriptive names for variables and functions like ```findProductByID``` which conveys its purpose clearly, retrieving a product by its product ID. 
+Additional function names used in this exercise are ```edit``` and ```delete``` and these functions are also predictable by their names. 
+
+Areas I would like to improve is adding comments to improve the readability as the current code lacks the documentation (ex. why the function works like this and that) and have better error handling so that the program can handle unexpected scenarios when running.
+
 </details>
