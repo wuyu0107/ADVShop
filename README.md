@@ -25,3 +25,21 @@ Areas I would like to improve is adding comments to improve the readability as t
   There would be issues with the cleanliness of the code since there would be repetition of instance variables and command methods from the ```CreateProductFunctionTest.java``` file if we follow the same setup procedures. This will violate the DRY (Don't Repeat Youself) rule of clean coding principles. Instead of repeating the same setup process and instance variables, we can create a base test class that contains the shared setup procedures and instance variables, then extend all functional test classes from this base class. 
 
 </details>
+
+### Module 2
+<details>
+<summary>Reflection</summary>
+
+#### List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
+Empty Test Methods
+   - SonarCloud identified that test methods ```contextLoads()``` and ```setup()``` were empty, suggesting that the methods need to be either implemented or commented with the purpose
+   - I fixed this code quality issue by adding a nested comment explaining why the methods are empty. 
+
+Variable Name Hiding a Field
+  - The local variable ```product``` in the test was hiding a field declared in the same class. So SonarCloud suggested renaming the variable again to avoid confusion and potential errors
+    - I fixed this issue by renaming the local variable from ```product``` to ```newProduct```, so that there will be no more confusion with the variable names
+
+#### Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current implementation has met the definition of Continuous Integration and Continuous Deployment? Explain the reasons (minimum 3 sentences)!
+I think the current implementation meets some part of the definition of continuous integration and continuous deployment (CI/CD). The workflows that I have implemented in this exercise include automated builds, security checks via Scorecard, and code analysis via SonarCloud. This indicates that the code is integrated and verified every push to the branches. However, since there is no automated testing of the code, it misses complete definition of continuous integration. For continuous deployment, this was done by integrating Koyeb to my project. It would allow for automated deployments to cloud environment after successful builds and checks. This meets the definition of continuous deployment as changes would be automatically deployed to the live environment. 
+
+</details>
