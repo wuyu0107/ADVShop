@@ -17,6 +17,10 @@ class ProductRepositoryTest {
 
     @BeforeEach
     void setUp() {
+        /*
+        The method is empty because no common set up is required
+        If setup is required, implement the necessary initialization code here
+        */
     }
 
     @Test

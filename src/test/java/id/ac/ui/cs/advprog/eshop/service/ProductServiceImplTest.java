@@ -36,12 +36,12 @@ public class ProductServiceImplTest {
 
     @Test
     void testCreate() {
-        Product product = new Product();
-        when(productRepository.create(product)).thenReturn(product);
-        Product result = productServiceImpl.create(product);
+        Product newProduct = new Product();
+        when(productRepository.create(newProduct)).thenReturn(newProduct);
+        Product result = productServiceImpl.create(newProduct);
 
-        assertEquals(product, result);
-        verify(productRepository).create(product);
+        assertEquals(newProduct, result);
+        verify(productRepository).create(newProduct);
     }
 
     @Test
