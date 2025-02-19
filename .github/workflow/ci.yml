@@ -7,7 +7,7 @@ on:
 jobs:
   test:
     name: Run tests
-    runs-on: ubuntu-22.04
+    runs-on: macos-latest  # Use a macOS runner instead of Ubuntu
     steps:
       - name: Checkout the Git repository
         uses: actions/checkout@v4
@@ -18,4 +18,4 @@ jobs:
           java-version: "21"
           cache: "gradle"
       - name: Run unit tests
-        run: .gradlew test
+        run: ./gradlew test
