@@ -51,9 +51,25 @@ I think the current implementation meets some part of the definition of continuo
 
 #### Explain what principles you apply to your project!
 
+Principles that were applied to my project are:
+
+```Single Responsibility Principle (SRP)```: It means that each class has a single responsibility. For example, controllers are broken into two parts, car and product. The ```CarController``` will handle only for the cars, while ```ProductController``` will only handle for the products. 
+
+```Open/Closed Principle (OCP)```: The principle allows implementations to be extended without existing classes. These are illustrated in the ```CarServiceImpl``` and ```ProductServiceImpl``` where if new features have to be added, new methods/functions can be created rather than changing the existing code. 
+
+```Interface Segregation Principle (ISP)```: The principle focuses on making multiple smaller interfaces, rather than having big ones. This principle is shown in ```CarService``` and ```ProductService```, allowing only the required behaviors to be implemented. 
+
 #### Explain the advantages of applying SOLID principles to your project with examples.
 
+1. Improved maintainability of the code: since each class has single responsibility, making changes in one part of the code won't affect the other areas. For example, if there is a logic change in ```CarService```, the repository of it will not get affected by the change.
+2. Easier implementation of new features: OCP ensures new features to be implemented without making changes to existing classes. If new type of product is added, new service implementation can be done without changing ```ProductService```.
+3. Reusable components of code: the interfaces and abstraction allows parts of code to be reused. For example, the ```CarService``` interface allows multiple implementations to be made, without affecting other existing code. 
+
 #### Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+1. Difficulty in maintaining code: if single class has multiple responsibilities, making a change in one part may affect the other part - possibly making it to not work. If ```CarService``` handled database operations, a change in business logic may affect the database queries too. 
+2. Difficult implementation of new features: Without OCP, making modifications or implementations of features require modification of existing classes, which may result in potential bugs. 
+3. Code duplication: having large interfaces may allow unrelated classes to be implemented with unnecessary methods. 
 
 </details>
 
