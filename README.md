@@ -27,7 +27,7 @@ Areas I would like to improve is adding comments to improve the readability as t
 </details>
 
 ### Module 2
-Deployment: oral-raynell-wuyu0107-16c10ca6.koyeb
+Deployment: https://oral-raynell-wuyu0107-16c10ca6.koyeb.app
 <details>
 <summary>Reflection</summary>
 
@@ -44,3 +44,16 @@ Variable Name Hiding a Field
 I think the current implementation meets some part of the definition of continuous integration and continuous deployment (CI/CD). The workflows that I have implemented in this exercise include automated builds, security checks via Scorecard, and code analysis via SonarCloud. This indicates that the code is integrated and verified every push to the branches. However, since there is no automated testing of the code, it misses complete definition of continuous integration. For continuous deployment, this was done by integrating Koyeb to my project. It would allow for automated deployments to cloud environment after successful builds and checks. This meets the definition of continuous deployment as changes would be automatically deployed to the live environment. 
 
 </details>
+
+### Module 3
+<details>
+<summary>Reflection</summary>
+
+#### Explain what principles you apply to your project!
+
+#### Explain the advantages of applying SOLID principles to your project with examples.
+
+#### Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+</details>
+
