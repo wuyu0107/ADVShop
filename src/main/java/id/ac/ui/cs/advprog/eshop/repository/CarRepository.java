@@ -21,8 +21,8 @@ public class CarRepository {
         return car;
     }
 
-    public Iterable<Car> findAll() {
-        return carData.iterator()
+    public Iterator<Car> findAll(){
+        return carData.iterator();
     }
 
     public Car findById(String id) {
@@ -45,5 +45,9 @@ public class CarRepository {
             }
         }
         return null;
+    }
+
+    public void delete(String id) {
+        carData.removeIf(car -> car.getCarID().equals(id));
     }
 }
