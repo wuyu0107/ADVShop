@@ -2,28 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create New Car</title>
+    <title>Edit Car</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERd`knLPMO" crossorigin="anonymous">
 </head>
 <body>
 
 <div class="container">
-    <h3>Create New Car</h3>
+    <h3>Edit Car</h3>
 
-    <form th:action="@{/car/createCar}" th:object="${car}" method="post">
+    <form th:action="@{/car/editCar}" th:object="${car}" method="post">
+        <input type="hidden" th:field="*{carId}">
         <div class="form-group">
             <label for="nameInput">Name</label>
-            <input th:field="*{car.carName}" type="text" class="form-control mb-4 col-4" id="nameInput" placeholder="Enter car' name">
+            <input th:field="*{carName}" type="text" class="form-control mb-4 col-4" id="nameInput" placeholder="Enter product' name">
         </div>
         <div class="form-group">
-            <label for="colorInput">Color</label>
-            <input th:field="*{car.carColor}" type="text" class="form-control mb-4 col-4" id="colorInput" placeholder="Enter car' color">
+            <label for="quantityInput">Color</label>
+            <input th:field="*{carColor}" type="text" class="form-control mb-4 col-4" id="quantityInput" placeholder="Enter product' name">
         </div>
         <div class="form-group">
             <label for="quantityInput">Quantity</label>
-            <input th:field="*{car.carQuantity}" type="text" class="form-control mb-4 col-4" id="quantityInput" placeholder="Enter car' quantity">
+            <input th:field="*{carQuantity}" type="text" class="form-control mb-4 col-4" id="quantityInput" placeholder="Enter product' name">
         </div>
-
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
