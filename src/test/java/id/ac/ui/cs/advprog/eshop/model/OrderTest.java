@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import enums.OrderStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -60,9 +61,9 @@ class OrderTest {
     @Test
     void testCreateOrderSuccessStatus() {
         Order order = new Order("13652556-012a-4c07-b546-54eb1396d79b", this.products,
-                1708560000L, "Safira Sudrajat", "SUCCESS");
+                1708560000L, "Safira Sudrajat", OrderStatus.SUCCESS.getStatus());
 
-        assertEquals("SUCCESS", order.getStatus());
+        assertEquals(OrderStatus.SUCCESS.getStatus(), order.getStatus());
     }
 
     // Unhappy path test
