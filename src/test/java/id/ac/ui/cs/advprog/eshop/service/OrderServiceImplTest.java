@@ -1,3 +1,4 @@
+
 package id.ac.ui.cs.advprog.eshop.service;
 
 import enums.OrderStatus;
@@ -21,10 +22,11 @@ import static org.mockito.Mockito.*;
 public class OrderServiceImplTest {
 
     @InjectMocks
-    OrderServiceImplTest orderService;
+    OrderServiceImpl orderService;
 
     @Mock
     OrderRepository orderRepository;
+
     List<Order> orders;
 
     @BeforeEach
@@ -80,13 +82,6 @@ public class OrderServiceImplTest {
         assertEquals(order.getId(), result.getId());
     }
 
-    @Test
-    void testFindAllByAuthorIfAuthorCorrect() {
-        Order order = orders.get(1);
-        doReturn(orders).when(orderRepository).findAllByAuthor(order.getAuthor());
-
-    }
-
     // Unhappy path test
     @Test
     void testCreateOrderIfAlreadyExists() {
@@ -135,5 +130,4 @@ public class OrderServiceImplTest {
                 order.getAuthor().toLowerCase());
         assertTrue(results.isEmpty());
     }
-
 }
