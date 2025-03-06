@@ -73,3 +73,27 @@ Principles that were applied to my project are:
 
 </details>
 
+### Module 4
+<details>
+<summary>Reflection</summary>
+
+#### Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+
+I think the TDD flow is effective when we have a clear picture of how the project will look like, such as features that we implement. We can test out each feature while implementing so that evaluation of the code can be done simultaneously. This helps us to ensure that our features won't have any problems later on, with other features being implemented. I think for this tutorial part, the TDD flow was useful since we had a clear flow of how each feature works and how it has to be implemented. 
+
+#### You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+
+F(Fast): For the current situation of the tutorial, it does follow this, because the number of unit test cases that we run are still small. However, this may be different when we run more test cases in our projects. 
+
+I(Isolated): The unit test cases were independent of each other without one unit test affecting the result of the other unit case. So I guess the tutorial follows this rule too.
+
+R(Repeatable): Since each tests do not reply on external dependencies, and the assertions use fixed values, we can say that the unit tests in the tutorial follows this principle. 
+
+S(Self-validating): All test have clear assertions such as ```assertEqual``` and ```assertThrows``` which defines the expected outcome. If the result of the working code gives out a different result from the assertions, the test will automatically self validate the result of the code. Hence this principle is followed during the tutorial. 
+
+T(Timely): I think the project follow the Timely principle, since the tests were generally created/implemented before or during development of the actual functionality of the features.  
+
+</details>
+
+
+
