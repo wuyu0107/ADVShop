@@ -20,7 +20,7 @@ public class PaymentTest {
     @Test
     void testCreatePaymentValidStatus() {
         paymentData.put("Fictional Book", "$9 Harry Potter");
-        Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", "Book", "SUCCESS", paymentData);
+        Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", "Voucher", "SUCCESS", paymentData);
 
         assertEquals("SUCCESS", payment.getStatus());
     }
