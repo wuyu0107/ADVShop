@@ -34,6 +34,8 @@ public class Payment {
 
         if (PaymentMethod.VOUCHER.getMethod().equals(method) && !isValidVoucher(paymentData.get("voucherCode"))) {
             this.status = PaymentStatus.REJECTED.getStatus();
+        } else if (PaymentMethod.CASH_ON_DELIVERY.getMethod().equals(method) && !isValidCOD(paymentData)) {
+            this.status = PaymentStatus.REJECTED.getStatus();
         } else {
             this.status = status;
         }
@@ -54,14 +56,11 @@ public class Payment {
                 voucherCode.replaceAll("[^0-9]", "").length() == 8;
     }
 
-    public void validatePayment(String method, Map<String, String> paymentData) {
-        if (PaymentMethod.VOUCHER.getMethod().equals(method)) {
-            String voucherCode = paymentData.get("voucherCode");
-            if (!isValidVoucher(voucherCode)) {
-                throw new IllegalArgumentException("Invalid voucher code: " + voucherCode);
-            }
-        }
+    public boolean hasValidField(Map<String, String> data, String key) {
+        return data.get(key) != null && !data.get(key).trim().isEmpty();
     }
 
-
+    public boolean isValidCOD(Map<String, String> paymentData) {
+        return hasValidField(paymentData, "address") && hasValidField(paymentData, "deliveryFee");
+    }
 }
