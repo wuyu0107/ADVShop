@@ -92,8 +92,9 @@ public class PaymentTest {
 
     @Test
     void testCreatePaymentWithInvalidVoucher() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.PENDING.getStatus(), invalidVoucherData);
-        });
+        Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.SUCCESS.getStatus(), invalidVoucherData);
+
+        assertEquals(PaymentMethod.VOUCHER.getMethod(), payment.getMethod());
+        assertEquals(PaymentStatus.REJECTED.getStatus(), payment.getStatus());
     }
 }
