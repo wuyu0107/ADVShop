@@ -19,6 +19,7 @@ public class Payment {
 
 
     public Payment(String id, String method, String status, Map<String, String> paymentData) {
+        validatePayment(method, paymentData);
         if (!PaymentMethod.contains(method)) {
             throw new IllegalArgumentException("Invalid payment method: " + method);
         }
@@ -40,4 +41,22 @@ public class Payment {
             throw new IllegalArgumentException();
         }
     }
+
+    public boolean isValidVoucher(String voucherCode) {
+        return voucherCode != null &&
+                voucherCode.length() == 16 &&
+                voucherCode.startsWith("ESHOP") &&
+                voucherCode.replaceAll("[^0-9]", "").length() == 8;
+    }
+
+    public void validatePayment(String method, Map<String, String> paymentData) {
+        if (PaymentMethod.VOUCHER.getMethod().equals(method)) {
+            String voucherCode = paymentData.get("voucherCode");
+            if (!isValidVoucher(voucherCode)) {
+                throw new IllegalArgumentException("Invalid voucher code: " + voucherCode);
+            }
+        }
+    }
+
+
 }
