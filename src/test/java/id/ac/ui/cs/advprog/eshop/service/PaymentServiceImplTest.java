@@ -52,15 +52,11 @@ public class PaymentServiceImplTest {
         validVoucherData = new HashMap<>();
         validVoucherData.put("voucherCode", "ESHOP1234ABC5678");
 
-        BankData = new HashMap<>();
-        BankData.put("bankCode", "Bank Central Asia");
-        BankData.put("referenceCode", "1234567890");
-
         payments = new ArrayList<>();
         Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.SUCCESS.getStatus(), validVoucherData);
         payments.add(payment1);
 
-        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af3856b078", PaymentMethod.BANK_TRANSFER.getMethod(), PaymentStatus.REJECTED.getStatus(), BankData);
+        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af3856b078", PaymentMethod.CASH_ON_DELIVERY.getMethod(), PaymentStatus.REJECTED.getStatus(), BankData);
         payments.add(payment2);
 
         testPayment = payments.get(0);
@@ -80,10 +76,10 @@ public class PaymentServiceImplTest {
 
     @Test
     void testAddPaymentWithValidBankTransfer() {
-        Payment testPayment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.BANK_TRANSFER.getMethod(), PaymentStatus.SUCCESS.getStatus(), BankData);
+        Payment testPayment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.CASH_ON_DELIVERY.getMethod(), PaymentStatus.SUCCESS.getStatus(), BankData);
         when(paymentRepository.save(any(Payment.class))).thenReturn(testPayment);
 
-        Payment result = paymentService.addPayment(order, PaymentMethod.BANK_TRANSFER.getMethod(), BankData);
+        Payment result = paymentService.addPayment(order, PaymentMethod.CASH_ON_DELIVERY.getMethod(), BankData);
 
         assertNotNull(result);
         assertEquals(testPayment.getId(), result.getId());

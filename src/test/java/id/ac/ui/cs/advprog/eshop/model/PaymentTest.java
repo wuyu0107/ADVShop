@@ -97,4 +97,40 @@ public class PaymentTest {
         assertEquals(PaymentMethod.VOUCHER.getMethod(), payment.getMethod());
         assertEquals(PaymentStatus.REJECTED.getStatus(), payment.getStatus());
     }
+
+    @Test
+    void testCashOnDeliveryWithValidData() {
+        Map<String, String> validCODData = new HashMap<>();
+        validCODData.put("address", "JL Pintu Besar Selatan, Karawaci Office Park Blok I No. 30-35 Lippo Karawaci, Tangerang");
+        validCODData.put("deliveryFee", "$4.00");
+
+        Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.CASH_ON_DELIVERY.getMethod(), PaymentStatus.SUCCESS.getStatus(), validCODData);
+
+        assertEquals(PaymentMethod.CASH_ON_DELIVERY.getMethod(), payment.getMethod());
+        assertEquals(PaymentStatus.SUCCESS.getStatus(), payment.getStatus());
+        assertEquals("JL Pintu Besar Selatan, Karawaci Office Park Blok I No. 30-35 Lippo Karawaci, Tangerang", payment.getPaymentData().get("address"));
+        assertEquals("$4.00", payment.getPaymentData().get("deliveryFee"));
+    }
+
+    @Test
+    void testCashOnDeliveryWithEmptyAddress() {
+        Map<String, String> invalidCODData = new HashMap<>();
+        invalidCODData.put("address", "");
+        invalidCODData.put("deliveryFee", "$4.00");
+
+        Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.CASH_ON_DELIVERY.getMethod(), PaymentStatus.SUCCESS.getStatus(), invalidCODData);
+        assertEquals(PaymentMethod.CASH_ON_DELIVERY.getMethod(), payment.getMethod());
+        assertEquals(PaymentStatus.REJECTED.getStatus(), payment.getStatus());
+    }
+
+    @Test
+    void testCAshOnDeliveryWithEmptyFee() {
+        Map<String, String> invalidCODData = new HashMap<>();
+        invalidCODData.put("address", "JL Pintu Besar Selatan, Karawaci Office Park Blok I No. 30-35 Lippo Karawaci, Tangerang");
+        invalidCODData.put("deliveryFee", "");
+
+        Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.CASH_ON_DELIVERY.getMethod(), PaymentStatus.SUCCESS.getStatus(), invalidCODData);
+        assertEquals(PaymentMethod.CASH_ON_DELIVERY.getMethod(), payment.getMethod());
+        assertEquals(PaymentStatus.REJECTED.getStatus(), payment.getStatus());
+    }
 }
