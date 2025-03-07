@@ -9,15 +9,25 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentTest {
     private Map<String, String> paymentData;
+    private Map<String, String> validVoucherData;
+    private Map<String, String> invalidVoucherData;
 
     @BeforeEach
     void setUp() {
         this.paymentData = new HashMap<String, String>();
+
+        // Set up valid voucher data
+        validVoucherData = new HashMap<>();
+        validVoucherData.put("voucherCode", "ESHOP1234ABC5678");
+
+        // Set up invalid voucher data
+        invalidVoucherData = new HashMap<>();
+        invalidVoucherData.put("voucherCode", "INVALIDCODE");
+
     }
 
     @Test
@@ -69,5 +79,21 @@ public class PaymentTest {
         Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.SUCCESS.getStatus(), paymentData);
 
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("NOOO"));
+    }
+
+    @Test
+    void testCreatePaymentWithValidVoucher() {
+        Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.SUCCESS.getStatus(), validVoucherData);
+        assertNotNull(payment);
+        assertEquals(PaymentMethod.VOUCHER.getMethod(), payment.getMethod());
+        assertEquals(PaymentStatus.SUCCESS.getStatus(), payment.getStatus());
+        assertEquals("ESHOP1234ABC5678", payment.getPaymentData().get("voucherCode"));
+    }
+
+    @Test
+    void testCreatePaymentWithInvalidVoucher() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.PENDING.getStatus(), invalidVoucherData);
+        });
     }
 }
