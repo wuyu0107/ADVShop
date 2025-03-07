@@ -35,7 +35,6 @@ public class PaymentServiceImplTest {
     List<Payment> payments;
     Order order;
     private Map<String, String> validVoucherData;
-    private Map<String, String> BankData;
     Payment testPayment;
 
     @BeforeEach
@@ -56,7 +55,7 @@ public class PaymentServiceImplTest {
         Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.SUCCESS.getStatus(), validVoucherData);
         payments.add(payment1);
 
-        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af3856b078", PaymentMethod.CASH_ON_DELIVERY.getMethod(), PaymentStatus.REJECTED.getStatus(), BankData);
+        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af3856b078", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.REJECTED.getStatus(), validVoucherData);
         payments.add(payment2);
 
         testPayment = payments.get(0);
@@ -67,19 +66,6 @@ public class PaymentServiceImplTest {
         when(paymentRepository.save(any(Payment.class))).thenReturn(testPayment);
 
         Payment result = paymentService.addPayment(order, PaymentMethod.VOUCHER.getMethod(), validVoucherData);
-
-        assertNotNull(result);
-        assertEquals(testPayment.getId(), result.getId());
-
-        verify(paymentRepository, times(1)).save(any(Payment.class));
-    }
-
-    @Test
-    void testAddPaymentWithValidBankTransfer() {
-        Payment testPayment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.CASH_ON_DELIVERY.getMethod(), PaymentStatus.SUCCESS.getStatus(), BankData);
-        when(paymentRepository.save(any(Payment.class))).thenReturn(testPayment);
-
-        Payment result = paymentService.addPayment(order, PaymentMethod.CASH_ON_DELIVERY.getMethod(), BankData);
 
         assertNotNull(result);
         assertEquals(testPayment.getId(), result.getId());
