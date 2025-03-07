@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import enums.OrderStatus;
 import enums.PaymentMethod;
 import enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
@@ -31,11 +32,11 @@ public class PaymentServiceImplTest {
     @Mock
     OrderRepository orderRepository;
 
+    List<Payment> payments;
     Order order;
     private Map<String, String> validVoucherData;
     private Map<String, String> BankData;
-
-    Payment testPayment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.SUCCESS.getStatus(), validVoucherData);
+    Payment testPayment;
 
     @BeforeEach
     void setUp() {
@@ -47,7 +48,6 @@ public class PaymentServiceImplTest {
         products.add(product1);
 
         order = new Order("13652556-012a-4c07-b546-54eb1396d79b", products, 1709560000L, "Safira Sudrajat");
-
         // Handle different payment methods
         validVoucherData = new HashMap<>();
         validVoucherData.put("voucherCode", "ESHOP1234ABC5678");
@@ -55,6 +55,15 @@ public class PaymentServiceImplTest {
         BankData = new HashMap<>();
         BankData.put("bankCode", "Bank Central Asia");
         BankData.put("referenceCode", "1234567890");
+
+        payments = new ArrayList<>();
+        Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.SUCCESS.getStatus(), validVoucherData);
+        payments.add(payment1);
+
+        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af3856b078", PaymentMethod.BANK_TRANSFER.getMethod(), PaymentStatus.REJECTED.getStatus(), BankData);
+        payments.add(payment2);
+
+        testPayment = payments.get(0);
     }
 
     @Test
@@ -84,34 +93,40 @@ public class PaymentServiceImplTest {
 
     @Test
     void testSetStatusSuccess() {
-        assertNotNull(testPayment, "testPayment is null! Check @BeforeEach initialization."); // ✅ Ensure testPayment is initialized
+        Payment payment = payments.get(1);
 
-        when(paymentRepository.findById(testPayment.getId())).thenReturn(testPayment);
+        // Mock Payment retrieval
+        when(paymentRepository.findById(payment.getId())).thenReturn(payment);
+        when(orderRepository.findById(payment.getId())).thenReturn(order);
 
-        Order mockOrder = new Order(testPayment.getId(), new ArrayList<>(), System.currentTimeMillis(), "User");
-        when(orderRepository.findById(testPayment.getId())).thenReturn(mockOrder);
+        // Mock saving behavior
+        when(paymentRepository.save(any(Payment.class))).thenReturn(payment);
+        when(orderRepository.save(any(Order.class))).thenReturn(order);
 
-        Payment updatedPayment = paymentService.setStatus(testPayment, "SUCCESS");
+        Payment result = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getStatus());
 
-        assertEquals("SUCCESS", updatedPayment.getStatus());
+        assertEquals(payment.getId(), result.getId());
+        assertEquals(PaymentStatus.SUCCESS.getStatus(), result.getStatus());
+        assertEquals("SUCCESS", result.getStatus());
         verify(paymentRepository, times(1)).save(any(Payment.class));
         verify(orderRepository, times(1)).save(any(Order.class));
     }
 
     @Test
     void testSetStatusRejected() {
-        when(paymentRepository.findById(testPayment.getId())).thenReturn(testPayment);
-        Order newOrder = new Order(testPayment.getId(), new ArrayList<>(), System.currentTimeMillis(), "User");
-        when(orderRepository.findById(testPayment.getId())).thenReturn(newOrder);
+        Payment payment = testPayment;
+        when(paymentRepository.findById(payment.getId())).thenReturn(payment);
 
-        Payment updatedPayment = paymentService.setStatus(testPayment, "SUCCESS");
+        assertThrows(IllegalArgumentException.class, () -> {
+            paymentService.setStatus(payment, "NOOOOAOAO");
+        });
 
-        assertEquals("SUCCESS", updatedPayment.getStatus());
+        verify(paymentRepository, times(0)).save(any(Payment.class));
     }
 
     @Test
     void testSetStatusWithNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NoSuchElementException.class, () -> {
             paymentService.setStatus(testPayment, null);
         });
 
