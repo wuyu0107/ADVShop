@@ -19,7 +19,6 @@ public class Payment {
 
 
     public Payment(String id, String method, String status, Map<String, String> paymentData) {
-        validatePayment(method, paymentData);
         if (!PaymentMethod.contains(method)) {
             throw new IllegalArgumentException("Invalid payment method: " + method);
         }
@@ -32,6 +31,12 @@ public class Payment {
         this.method = method;
         this.status = status;
         this.paymentData = paymentData;
+
+        if (PaymentMethod.VOUCHER.getMethod().equals(method) && !isValidVoucher(paymentData.get("voucherCode"))) {
+            this.status = PaymentStatus.REJECTED.getStatus();
+        } else {
+            this.status = status;
+        }
     }
 
     public void setStatus(String status) {
