@@ -32,7 +32,7 @@ public class PaymentTest {
 
     @Test
     void testCreatePaymentValidStatus() {
-        paymentData.put("Fictional Book", "$9 Harry Potter");
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
         Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.SUCCESS.getStatus(), paymentData);
 
         assertEquals(PaymentStatus.SUCCESS.getStatus(), payment.getStatus());
@@ -40,7 +40,7 @@ public class PaymentTest {
 
     @Test
     void testCreatePaymentInvalidStatus() {
-        paymentData.put("Fictional Book", "$9 Harry Potter");
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", "Book", "NOOOO", paymentData);
@@ -49,7 +49,7 @@ public class PaymentTest {
 
     @Test
     void testCreatePaymentValidMethod() {
-        paymentData.put("Voucher Code", "BOOKSFORBOOKS284");
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
         Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.SUCCESS.getStatus(), paymentData);
 
         assertEquals("Voucher", payment.getMethod());
@@ -57,7 +57,7 @@ public class PaymentTest {
 
     @Test
     void testCreatePaymentInvalidMethod() {
-        paymentData.put("Voucher Code", "BOOKSFORBOOKS284");
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", "", PaymentStatus.SUCCESS.getStatus(), paymentData);
@@ -66,7 +66,7 @@ public class PaymentTest {
 
     @Test
     void testSetStatusValid () {
-        paymentData.put("Voucher Code", "BOOKSFORBOOKS284");
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
         Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.VOUCHER.getMethod(), "SUCCESS", paymentData);
         payment.setStatus(PaymentStatus.SUCCESS.getStatus());
 
@@ -75,7 +75,7 @@ public class PaymentTest {
 
     @Test
     void testSetStatusInvalid () {
-        paymentData.put("Voucher Code", "BOOKSFORBOOKS284");
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
         Payment payment = new Payment("2988ae9d-e3bb-4390-9494-f2c15765c354", PaymentMethod.VOUCHER.getMethod(), PaymentStatus.SUCCESS.getStatus(), paymentData);
 
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("NOOO"));
