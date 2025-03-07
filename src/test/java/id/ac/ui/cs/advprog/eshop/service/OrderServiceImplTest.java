@@ -88,7 +88,22 @@ public class OrderServiceImplTest {
         Order order = orders.get(1);
         doReturn(order).when(orderRepository).findById(order.getId());
 
-        assertNull(orderService.createOrder(order));
+        /*
+         * Code Smell: Previously, the createOrder method returned null when the order already existed.
+         * Impact: Returning null can obscure error handling and lead to NullPointerExceptions in client code.
+         * Refactoring: Throw a specific exception to clearly indicate the error.
+         */
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            orderService.createOrder(order);
+        });
+
+        /*
+         * Code Smell: The repository's save method should not be called when an order already exists.
+         * Impact: Unnecessary or incorrect invocations of save may lead to unintended side effects or data inconsistencies.
+         * Refactoring: Verify that the save method is not invoked to ensure the control flow is correct.
+         */
+
         verify(orderRepository, times(0)).save(order);
     }
 
