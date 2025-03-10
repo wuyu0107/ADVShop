@@ -95,5 +95,33 @@ T(Timely): I think the project follow the Timely principle, since the tests were
 
 </details>
 
+### Module 5
+
+<details>
+<summary> Exercise </summary>
+
+#### Create 2 other test plan for endpoints /all-student-name and /highest-gpa.
+
+1. ```all-student-name request```
+   
+   <img width="500" alt="Screenshot 2025-03-10 at 11 03 33 AM" src="https://github.com/user-attachments/assets/0c6b2f88-b203-469c-97cf-9ac603b92a9c" />
+
+2. ```highest-gpa request```
+   
+   <img width="500" alt="Screenshot 2025-03-10 at 11 05 42 AM" src="https://github.com/user-attachments/assets/187dfeee-31ef-45f3-b820-b4e86574da05" />
+
+#### Run both test plans that you have previously created (for endpoint /highest-gpa and /all-student-name) via the command line, take a screenshot of the results, and include them in the README.md file.
+
+1. ```all-student-name request```
+
+   <img width="500" alt="Screenshot 2025-03-10 at 11 10 22 AM" src="https://github.com/user-attachments/assets/bfb78031-c5eb-47b7-b510-f68627453f6d" />
+
+2. ```highest-gpa request```
+
+   <img width="500" alt="Screenshot 2025-03-10 at 11 10 44 AM" src="https://github.com/user-attachments/assets/3291a996-644b-4f9d-b384-543d6b910724" />
+
+
+</details>
+
 
 
